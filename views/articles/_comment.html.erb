@@ -1,0 +1,22 @@
+<li id="comment-<%= comment.id %>">
+  <div class='comment-content'>
+    <div class='before-comment'></div>
+    <div class='comment'>
+      <%= avatar_tag(:email => comment.email, :url => comment.url) %>      
+      <cite><%= (comment.url.blank?) ? h(comment.author) : link_to(h(comment.author), comment.url) %></cite>  says<br />
+      <small class='commentmetadata'>
+        <%= distance_of_time_in_words comment.article.published_at, comment.created_at %> <%= _("later")%>
+      </small>
+      <div class='comment-text'>
+        <%= comment.html %>
+        <% unless comment.published -%>
+        <div class="spamwarning"><%= _("This comment has been flagged for moderator approval.") %></div>
+        <% end -%>
+      </div>
+    </div>
+    <div class='after-comment'>
+      <div></div>
+    </div>
+  </div>
+</li>
+

@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title><%=h page_title %></title>
+  <%= page_header %>
+  <%= stylesheet_link_tag '/stylesheets/theme/style.css', :media => 'all' %>
+  <!--[if IE]>
+  <%= stylesheet_link_tag '/stylesheets/theme/ie.css', :media => 'all' %>
+  <style type="text/css">
+  #footer #subscribe a {
+          background:none;
+          filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<%= this_blog.base_url%>/images/rss.png');
+  }
+  </style>
+  <![endif]-->
+
+
+</head>
+
+<body>
+  <div id="page">
+    <div id='menu'>
+      <ul>
+        <li class='page_item'><%= link_to _("Home"), this_blog.base_url %></li>
+      </ul>
+      <div class='clear'></div>
+    </div>
+    <div id='header-wrap'>
+      <div id="header">
+        <div>
+          <h1><%= link_to this_blog.blog_name, this_blog.base_url %></h1>
+          <span id="blog-description"><%= this_blog.blog_subtitle %></span>
+        </div>        
+      </div>
+    </div>
+
+    <div id='content-container'>
+      <div id="content">
+        <div id='body'>
+          <%= yield %>
+          <%= javascript_tag 'show_dates_as_local_time()' %>          
+        </div>
+        <div id='sidebar'>
+          <%= render_sidebars %>          
+        </div>
+      </div>      
+      <br class='clear' />
+    </div>
+
+
+      <div id="footer">
+          <div class="legal">
+          <%= _("Powered by %s", link_to('typo', 'http://typosphere.org')) %>
+          <%= _("Designed by %s ", link_to('Michael Tyson', 'http://michael.tyson.id.au')) %>
+          </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

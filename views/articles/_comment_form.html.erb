@@ -1,0 +1,45 @@
+<h4 id="respond"><%= _("Leave a comment")%></h4>
+
+<% form_remote_tag :url      => @article.comment_url,
+                    :position => :bottom,
+                    :update   => {:success => 'commentList'},
+                    :loading  => "loading()",
+                    :complete => "complete(request)",
+                    :failure  => "failure(request)",
+                    :html     => {:id => 'commentform', :class => 'comments' } \
+    do %>
+
+<div id="preview" style="display:none"></div>
+
+<p>
+  <input type="text" class="text" name="comment[author]" id="author" size="22" tabindex="1" />
+  <label for="author"><small><%= _('Name')%></small></label>
+</p>
+
+<p>
+  <input type="text" class="text" name="comment[email]" id="email" size="22" tabindex="1" />
+  <label for="email"><small><%= _('Email')%></small></label>
+  <small>(<%= _("never displayed") %>)</small>
+</p>
+<p>
+	  <input type="text" class="text" name="comment[url]" id="author" size="22" />
+	  <label><small><%= _("Website")%></small></label>
+</p>
+
+<p><%= content_tag('small', link_to(_("Textile enabled"), "http://hobix.com/textile/")) if this_blog.comment_text_filter.include? 'textile' %>
+<%= content_tag('small', link_to(_("Markdown enabled"), "http://daringfireball.net/projects/markdown/")) if this_blog.comment_text_filter.include? 'markdown' %>
+</p>
+
+<p>
+  <textarea name="comment[body]" id="comment" cols="100%" rows="10" tabindex="4"></textarea>
+</p>
+
+<p><%= submit_to_remote('preview', _('Preview') + '!',
+                     :update => 'preview',
+                     :complete => "Element.show('preview')",
+                     :url    => @article.preview_comment_url,
+										 :html => {:class => 'submit', :id => 'form-preview-button'}) %>
+<%= submit_tag _('Submit'), :id => 'form-submit-button', :class => 'submit', :onclick => "$('commentform').onsubmit();this.disabled=true;Element.hide('preview');return false;" %>
+<%= image_tag '/images/theme/spinner.gif', :id => 'comment_loading', :style => 'display:none' %>
+</p>
+<% end %>

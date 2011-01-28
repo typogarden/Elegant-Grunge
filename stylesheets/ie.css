@@ -1,0 +1,37 @@
+.sidebar #searchform div #searchsubmit {
+	position: relative;
+	top: 3px;
+}
+
+.sidebar #searchform div #s {
+	margin-left: 25px;
+}
+
+.double-right-sidebar .sidebar #searchform div #s {
+	width: 119px;
+}
+
+.hr {
+	margin-top: 0;
+}
+
+.frame-outer span span span span * {
+	width: expression(this.width > 420? "420px" : this.width);
+}
+
+.frame-outer .alignright {
+	float: none;
+}
+
+.frame-outer .aligncenter {
+	display: inline-block;
+}
+
+#footer-wrap-outer {
+	margin-top: 0;
+}
+
+#footer {
+	height:auto !important;
+	height:30px;
+}

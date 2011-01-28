@@ -1,0 +1,45 @@
+<div class="post" id="article-<%= article.id %>">
+  <div class="date">
+  <%= js_distance_of_time_in_words_to_now article.published_at %>  
+  </div>
+  <h2><%= (controller.action_name.include? 'permalink') ? article.title : link_to_permalink(article,article.title) %></h2>
+  
+  
+  <div class='entry'>
+    <% if controller.action_name == 'show' or controller.action_name == 'index' %>
+      <% if article.excerpt? %>
+        <%= article.excerpt %>
+      <% else %>
+        <%= article.html(:body) %>
+        <div class="extended">
+          <p><%= link_to_permalink article,"Continue reading..." %></p>
+        </div>
+      <% end %>
+    <% else %>
+      <%= article.html(:body) %>
+      <div class="extended">
+        <%= article.html(:extended) %>
+      </div>
+    <% end %>
+  </div>
+  <div class='clear'></div>
+  <% if controller.action_name == "redirect" %>
+  <div class="metadata">
+    <p><%= tag_links(@article) unless @article.tags.empty? %></p>
+    <p>
+      <%= _("This entry was posted on %s", category_links(@article)) unless @article.categories.empty? %>. 
+      <%= _("You can follow any any response to this entry through the %s", link_to(_("Atom feed"), @auto_discovery_url_atom)) %>. 
+      <%= _("You can leave a %s", link_to_permalink(article, _('comment'), 'comments')) unless @article.comments_closed? %> 
+      <%= _("or a %s from your own site", link_to_permalink(@article, _('trackback'), 'trackbacks')) if @article.allow_pings? %>.
+    </p>
+  </div>    
+  <% else %>
+	<div class='metadata' class="links">
+		<%= link_to_permalink(article, _("Read full article"), nil, 'more') if controller.action_name != 'permalink' %>
+		<%= link_to_permalink(article,pluralize(article.published_comments.size, _('no comments') , _('1 comment'), __('%d comments')),'comments', 'comments') %>
+	</div>    
+  <% end %>
+</div>
+<div class='hr'>
+  <hr />
+</div>
